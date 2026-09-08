@@ -194,6 +194,11 @@ Refatoramos a lógica do método `troca()`. O código bruto da IA removia e rein
 
 ## 3.4. Evidência de Testes
 *(Relatório simples dos testes de estresse executados, demonstrando que o código refatorado por você supera o código ingênuo gerado inicialmente pelo modelo).*
-
+* **Relatório de Estresse e Validação:**
+  Desenvolvemos uma suíte de testes automatizados para submeter a pilha refatorada a cenários extremos. O script executou com sucesso as seguintes validações:
+  1. **Estouro de Capacidade:** A pilha com limite fixado em 3 elementos disparou corretamente a exceção `PilhaCheiaErro` ao tentar inserir um 4º elemento.
+  2. **Proteção contra Pilha Vazia:** A tentativa de remoção em uma pilha vazia foi interceptada com sucesso pela exceção `PilhaVaziaErro`.
+  3. **Restrição de Tipos:** A inserção de dados de tipos diferentes (string em pilha numérico) foi bloqueada com o disparo correto de `TipoErro`.
+  4. **Correção do Método Troca:** O método `troca` novo manipulou a inversão do topo por acesso direto a índices de forma segura, superando a implementação inicial da IA e operando sem falhas lógicas sob estresse.
 
 
