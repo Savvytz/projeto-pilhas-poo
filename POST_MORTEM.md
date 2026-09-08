@@ -107,8 +107,11 @@ Após a análise do código bruto gerado pela IA, realizamos as seguintes refato
 *(Análise da solução inicial gerada pela IA, identificando falhas de eficiência, complexidade e segurança nas três linguagens)*
 
 * **Eficiência**
+  * A IA fez o uso de um array contíguo em memória, com isso, todas as operações operam em tempo constante $O(1)$ e aproveitam a localidade espacial de referência, otimizando o uso do cache da CPU
 * **Complexidade**
+  * O código da IA cumpre os requisitos de POO ao manter os membros privados(array, capacidade, topo_index, etc). A implementação ficou restrita unicamente ao tipo primitivo int, porem com essa restrição a um tipo que em caso de mudança seria preciso duplicar o código-fonte manualmente, aumentando a complexidade de manutenção do projeto.
 * **Segurança**
+  * O processo tem algumas falhas no quesito segurança, deixando o programa consideravelmente vulnerável, pontos como a ausência de validação defensiva na instanciação e insegurança de acesso por índices desprptegidos fez com que houvesse mudanças depois de alguns testes efetuados.
 
 ## 2.3. Justificativa de Refatoração
 *(Adicionar detalhadamente quais alterações foram realizadas no código para atender aos requisitos de desempenho, correção e testes solicitados)*
