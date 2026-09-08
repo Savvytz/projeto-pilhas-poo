@@ -116,7 +116,7 @@ Após a análise do código bruto gerado pela IA, realizamos as seguintes refato
 ## 2.3. Justificativa de Refatoração
 *(Adicionar detalhadamente quais alterações foram realizadas no código para atender aos requisitos de desempenho, correção e testes solicitados)*
 
-Após a análise do código bruto gerado pela IA, realizamos as seguintes refatorações manuais :
+  Após a análise do código bruto gerado pela IA, realizamos as seguintes refatorações manuais :
 
 ### Tratamento de Exceções Obrigatórias
 * **Problema inicial:**
@@ -127,13 +127,13 @@ Após a análise do código bruto gerado pela IA, realizamos as seguintes refato
 
 
 ### Ajustes de Desempenho e Estrutura 
-A implementação inicial amarrava a estrutura exclusivamente ao tipo primitivo int e apresentava uma falha grave de segurança de memória por violar a Regra dos Três (Rule of Three), permitindo a ocorrência de Double Free Error e corrupção do Heap ao copiar instâncias da pilha.
+  A implementação inicial amarrava a estrutura exclusivamente ao tipo primitivo int e apresentava uma falha grave de segurança de memória por violar a Regra dos Três (Rule of Three), permitindo a ocorrência de Double Free Error e corrupção do Heap ao copiar instâncias da pilha.
 
-* Ajustes Realizados:
+ * Ajustes Realizados:
 
-1 - Generacidade via Templates (template <typename T>): A classe foi convertida para um modelo genérico, permitindo reutilizar a mesma estrutura para qualquer tipo básico (char, float, double, int) sem custo de desempenho em tempo de execução.
+     1 - *Generacidade via Templates (template <typename T>):* A classe foi convertida para um modelo genérico, permitindo reutilizar a mesma estrutura para qualquer tipo básico (char, float, double, int) sem custo de desempenho em tempo de execução.
 
-2- Bloqueio de Cópia Rasa (= delete): Foram desativados explicitamente o construtor de cópia e o operador de atribuição (Pilha(const Pilha&) = delete;). Com isso, tentativas de atribuição entre instâncias são bloqueadas diretamente pelo compilador, garantindo a integridade da memória alocada no Heap.
+     2- *Bloqueio de Cópia Rasa (= delete):* Foram desativados explicitamente o construtor de cópia e o operador de atribuição (Pilha(const Pilha&) = delete;). Com isso, tentativas de atribuição entre instâncias são bloqueadas diretamente pelo compilador, garantindo a integridade da memória alocada no Heap.
 
   
 ### Refinamento dos Métodos Auxiliares (`troca` e `tamanho`)
@@ -147,33 +147,33 @@ A implementação inicial amarrava a estrutura exclusivamente ao tipo primitivo 
 *(Relatório simples dos testes de estresse executados, demonstrando que o código refatorado por você supera o código ingênuo gerado inicialmente pelo modelo).*
 [SUÍTE DE TESTES] Iniciando validação da classe Pilha Refatorada...
 
-[TESTE 1] Inserção e Remoção Sequencial (Pilha<int>)
-  -> Empilhando: 10, 20, 30
-  -> Desempilhando: 30 (OK)
-  -> Status: PASSOU
+   *[TESTE 1] Inserção e Remoção Sequencial (Pilha<int>)*
+     -> Empilhando: 10, 20, 30
+     -> Desempilhando: 30 (OK)
+     -> Status: PASSOU
 
-[TESTE 2] Inversão de Topo com troca() (Pilha<float>)
-  -> Topo inicial: 2.5 | Sub-topo: 1.2
-  -> Executando troca()...
-  -> Novo topo: 1.2 (OK)
-  -> Status: PASSOU
+   *[TESTE 2] Inversão de Topo com troca() (Pilha<float>)*
+     -> Topo inicial: 2.5 | Sub-topo: 1.2
+     -> Executando troca()...
+     -> Novo topo: 1.2 (OK)
+     -> Status: PASSOU
 
-[TESTE 3] Interceptação de Subfluxo (PilhaVaziaErro)
-  -> Tentando desempilhar pilha vazia...
-  -> Exceção Capturada: "Erro: A pilha nao possui elementos suficientes!"
-  -> Status: PASSOU
+   *[TESTE 3] Interceptação de Subfluxo (PilhaVaziaErro)*
+     -> Tentando desempilhar pilha vazia...
+     -> Exceção Capturada: "Erro: A pilha nao possui elementos suficientes!"
+     -> Status: PASSOU
 
-[TESTE 4] Interceptação de Transbordo (PilhaCheiaErro)
-  -> Preenchendo pilha (3/3)... Tentando inserir o 4º elemento...
-  -> Exceção Capturada: "Erro: A pilha esta cheia!"
-  -> Status: PASSOU
+   *[TESTE 4] Interceptação de Transbordo (PilhaCheiaErro)*
+     -> Preenchendo pilha (3/3)... Tentando inserir o 4º elemento...
+     -> Exceção Capturada: "Erro: A pilha esta cheia!"
+     -> Status: PASSOU
 
-[TESTE 5] Proteção de Memória (Regra dos Três)
-  -> Tentando executar: Pilha<int> p2 = p1;
-  -> Erro de Compilação: 'Pilha<T>::Pilha(const Pilha<T>&)' is deleted.
-  -> Status: PASSOU (Double Free Evitado)
+   *[TESTE 5] Proteção de Memória (Regra dos Três)*
+     -> Tentando executar: Pilha<int> p2 = p1;
+     -> Erro de Compilação: 'Pilha<T>::Pilha(const Pilha<T>&)' is deleted.
+     -> Status: PASSOU (Double Free Evitado)
 
-[RESULTADO FINAL]: 5/5 Testes executados com sucesso.
+*[RESULTADO FINAL]:* 5/5 Testes executados com sucesso.
 
 ## 3. JavaScript 
 
