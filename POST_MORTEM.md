@@ -47,29 +47,29 @@ Após a análise do código bruto gerado pela IA, realizamos as seguintes refato
 * **Código Bruto da IA:**
   ```C++
   #include <iostream>
-#include <exception>
+  #include <exception>
 
-class PilhaCheiaErro : public std::exception {
-public:
+  class PilhaCheiaErro : public std::exception {
+  public:
     const char* what() const noexcept override {
         return "Erro: A pilha esta cheia!";
     }
-};
+  };
 
-class PilhaVaziaErro : public std::exception {
-public:
+  class PilhaVaziaErro : public std::exception {
+  public:
     const char* what() const noexcept override {
         return "Erro: A pilha esta vazia!";
     }
-};
+  };
 
-class Pilha {
-private:
+  class Pilha {
+  private:
     int* array;
     int capacidade;
     int topo_index;
 
-public:
+  public:
     Pilha(int cap) : capacidade(cap), topo_index(-1) {
         array = new int[capacidade];
     }
@@ -101,7 +101,7 @@ public:
         array[topo_index] = array[topo_index - 1];
         array[topo_index - 1] = temp;
     }
-};
+  };
   
 ## 2.2 Code Review Crítico
 *(Análise da solução inicial gerada pela IA, identificando falhas de eficiência, complexidade e segurança nas três linguagens)*
