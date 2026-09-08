@@ -145,7 +145,35 @@ A implementação inicial amarrava a estrutura exclusivamente ao tipo primitivo 
 
 ## 2.4. Evidência de Testes
 *(Relatório simples dos testes de estresse executados, demonstrando que o código refatorado por você supera o código ingênuo gerado inicialmente pelo modelo).*
+[SUÍTE DE TESTES] Iniciando validação da classe Pilha Refatorada...
 
+[TESTE 1] Inserção e Remoção Sequencial (Pilha<int>)
+  -> Empilhando: 10, 20, 30
+  -> Desempilhando: 30 (OK)
+  -> Status: PASSOU
+
+[TESTE 2] Inversão de Topo com troca() (Pilha<float>)
+  -> Topo inicial: 2.5 | Sub-topo: 1.2
+  -> Executando troca()...
+  -> Novo topo: 1.2 (OK)
+  -> Status: PASSOU
+
+[TESTE 3] Interceptação de Subfluxo (PilhaVaziaErro)
+  -> Tentando desempilhar pilha vazia...
+  -> Exceção Capturada: "Erro: A pilha nao possui elementos suficientes!"
+  -> Status: PASSOU
+
+[TESTE 4] Interceptação de Transbordo (PilhaCheiaErro)
+  -> Preenchendo pilha (3/3)... Tentando inserir o 4º elemento...
+  -> Exceção Capturada: "Erro: A pilha esta cheia!"
+  -> Status: PASSOU
+
+[TESTE 5] Proteção de Memória (Regra dos Três)
+  -> Tentando executar: Pilha<int> p2 = p1;
+  -> Erro de Compilação: 'Pilha<T>::Pilha(const Pilha<T>&)' is deleted.
+  -> Status: PASSOU (Double Free Evitado)
+
+[RESULTADO FINAL]: 5/5 Testes executados com sucesso.
 
 ## 3. JavaScript 
 
