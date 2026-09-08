@@ -20,7 +20,7 @@
 ## 1.3. Justificativa de Refatoração
 *(Adicionar detalhadamente quais alterações foram realizadas no código para atender aos requisitos de desempenho, correção e testes solicitados)*
 
-Após a análise do código bruto gerado pela IA, realizamos as seguintes refatorações manuais nas três linguagens do projeto:
+Após a análise do código bruto gerado pela IA, realizamos as seguintes refatorações manuais:
 
 ### Tratamento de Exceções Obrigatórias
 * **Problema inicial:**
@@ -57,7 +57,7 @@ Após a análise do código bruto gerado pela IA, realizamos as seguintes refato
 ## 2.3. Justificativa de Refatoração
 *(Adicionar detalhadamente quais alterações foram realizadas no código para atender aos requisitos de desempenho, correção e testes solicitados)*
 
-Após a análise do código bruto gerado pela IA, realizamos as seguintes refatorações manuais nas três linguagens do projeto:
+Após a análise do código bruto gerado pela IA, realizamos as seguintes refatorações manuais :
 
 ### Tratamento de Exceções Obrigatórias
 * **Problema inicial:**
@@ -169,27 +169,27 @@ Após a análise do código bruto gerado pela IA, realizamos as seguintes refato
 * **Complexidade**
   * Os métodos básicos, de empilha() e desempilha() operam em tempo constante O(1), oque é ótimo. No entanto, o método auxiliar `troca()` foi implementado de forma ineficiente, utilizando múltiplos comandos `.pop()` e `.push()` em vez de um acesso direto otimizado aos índices do topo. 
 * **Segurança**
-  * A IA criou as classes de erro personalizadas (`PilhaCheiaErro`, `PilhaVaziaErro`, `TipoErro`), mas na classe `troca()`, quando a pilha continha menos de dois elementos, a IA lançou apenas uma exceção genérica (`throw new Error()`) em vez de utilizar uma abordagem alinhada aos padrões do projeto.
+  * A IA criou as classes de erro personalizadas (`PilhaCheiaErro`, `PilhaVaziaErro`, `TipoErro`), mas na classe `troca()`, quando a pilha contém menos de dois elementos, a IA lança apenas uma exceção genérica (`throw new Error()`) em vez de utilizar uma abordagem alinhada aos padrões do projeto.
 
 
 ## 3.3. Justificativa de Refatoração
 *(Adicionar detalhadamente quais alterações foram realizadas no código para atender aos requisitos de desempenho, correção e testes solicitados)*
 
-Após a análise do código bruto gerado pela IA, realizamos as seguintes refatorações manuais nas três linguagens do projeto:
+Após a análise do código bruto gerado pela IA, realizamos as seguintes refatorações manuais:
 
 ### Tratamento de Exceções Obrigatórias
 * **Problema inicial:**
-  
+Lançamento de exceção genérico (`throw new Error(...)`) no método auxiliar `troca()` e omite a validação prévia de quantidade mínima de elementos.
 * **Alteração realizada:**
-
+Padronizamos todas as falhas de fluxo para utilizarem as exceções , garantindo que o método `troca()` valide a presença de pelo menos dois elementos na pilha e dispare a exceção esperada.
   
 
 ### Ajustes de Desempenho e Estrutura 
-
+* O array dinâmico nativo do JavaScript (`[]`) fornecido inicialmente foi mantido para a estrutura básica da linguagem. No entanto, implementamos travas de segurança no construtor e no método `empilha()` para assegurar que a restrição de tipo básico exigida pelo projeto seja estritamente respeitada.
   
 ### Refinamento dos Métodos Auxiliares (`troca` e `tamanho`)
 * **Alteração realizada:**
-
+Refatoramos a lógica do método `troca()`. O código bruto da IA removia e reinseria os elementos do array de forma redundante e ineficiente via múltiplos `.pop()` e `.push()`. Alteramos a abordagem para realizar a inversão com base direta nos índices do topo da pilha de forma limpa, segura e com validação prévia de tamanho mínimo.
   
 
 ## 3.4. Evidência de Testes
