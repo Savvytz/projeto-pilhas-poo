@@ -42,10 +42,66 @@ Após a análise do código bruto gerado pela IA, realizamos as seguintes refato
 ## 2.1. Log de interação e Prompts
 (Fornecer os techos de código desenvolvidos pela ia antes de quaisquer modificações manuais)
 
-* **Prompt Utilizado:** 
+* **Prompt Utilizado:** Crie uma classe POO em C++ para implementar uma estrutura de dados Pilha usando um array nativo de capacidade fixa para armazenar um tipo básico. A classe deve implementar os seguintes métodos: empilha(dado), desempilha(), pilha_esta_vazia(), pilha_esta_cheia(), troca() e tamanho(). Trate os limites da pilha lançando exceções personalizadas chamadas PilhaCheiaErro e PilhaVaziaErro estendendo std::exception.
+  
 * **Código Bruto da IA:**
   ```C++
-  #Códgio aqui
+  #include <iostream>
+#include <exception>
+
+class PilhaCheiaErro : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "Erro: A pilha esta cheia!";
+    }
+};
+
+class PilhaVaziaErro : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "Erro: A pilha esta vazia!";
+    }
+};
+
+class Pilha {
+private:
+    int* array;
+    int capacidade;
+    int topo_index;
+
+public:
+    Pilha(int cap) : capacidade(cap), topo_index(-1) {
+        array = new int[capacidade];
+    }
+
+    ~Pilha() {
+        delete[] array;
+    }
+
+    bool pilha_esta_vazia() const { return topo_index == -1; }
+    bool pilha_esta_cheia() const { return topo_index == capacidade - 1; }
+    int tamanho() const { return topo_index + 1; }
+
+    void empilha(int dado) {
+        if (pilha_esta_cheia()) throw PilhaCheiaErro();
+        topo_index++;
+        array[topo_index] = dado;
+    }
+
+    int desempilha() {
+        if (pilha_esta_vazia()) throw PilhaVaziaErro();
+        int valor = array[topo_index];
+        topo_index--;
+        return valor;
+    }
+
+    void troca() {
+        if (tamanho() < 2) throw PilhaVaziaErro();
+        int temp = array[topo_index];
+        array[topo_index] = array[topo_index - 1];
+        array[topo_index - 1] = temp;
+    }
+};
   
 ## 2.2 Code Review Crítico
 *(Análise da solução inicial gerada pela IA, identificando falhas de eficiência, complexidade e segurança nas três linguagens)*
