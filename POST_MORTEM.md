@@ -120,16 +120,28 @@ Após a análise do código bruto gerado pela IA, realizamos as seguintes refato
 
 ### Tratamento de Exceções Obrigatórias
 * **Problema inicial:**
+   * Não houve alteração estrutural no lançamento das exceções do enunciado. O código bruto inicial gerado pela IA já cumpria os requisitos de herdar de std::exception com o qualificador noexcept no método what() e disparar PilhaCheiaErro no transbordo (overflow) e PilhaVaziaErro no subfluxo (underflow).
   
 * **Alteração realizada:**
+   * Apenas estendeu-se o uso de exceções padrão da linguagem para cobrir falhas de validação na instanciação. Adicionou-se o lançamento de std::invalid_argument no construtor para interceptar capacidades inválidas (cap <= 0) antes que o operador new[] cause falhas de alocação de memória no Heap.
 
-  
 
 ### Ajustes de Desempenho e Estrutura 
+A implementação inicial amarrava a estrutura exclusivamente ao tipo primitivo int e apresentava uma falha grave de segurança de memória por violar a Regra dos Três (Rule of Three), permitindo a ocorrência de Double Free Error e corrupção do Heap ao copiar instâncias da pilha.
+
+* Ajustes Realizados:
+
+1 - Generacidade via Templates (template <typename T>): A classe foi convertida para um modelo genérico, permitindo reutilizar a mesma estrutura para qualquer tipo básico (char, float, double, int) sem custo de desempenho em tempo de execução.
+
+2- Bloqueio de Cópia Rasa (= delete): Foram desativados explicitamente o construtor de cópia e o operador de atribuição (Pilha(const Pilha&) = delete;). Com isso, tentativas de atribuição entre instâncias são bloqueadas diretamente pelo compilador, garantindo a integridade da memória alocada no Heap.
 
   
 ### Refinamento dos Métodos Auxiliares (`troca` e `tamanho`)
+   *  O método troca() dependia do cálculo dinâmico da função de consulta tamanho() < 2, que por sua vez fazia a operação matemática topo_index + 1. Além disso, faltava o qualificador const nas funções de consulta de estado, o que impedia a leitura do estado da pilha a partir de referências ou ponteiros constantes (const Pilha<T>&).
 * **Alteração realizada:**
+   * Ajuste de Imutabilidade (const correctness): Todos os métodos de consulta (pilha_esta_vazia(), pilha_esta_cheia(), tamanho()) foram marcados com o qualificador const, garantindo a integridade dos dados e permitindo o uso seguro do objeto em contextos de leitura constante.
+
+   * Otimização do Método troca(): A validação do topo foi simplificada para checar diretamente a condição de limite dos índices internos, evitando chamadas indiretas desnecessárias sem perder o rigor no tratamento da exceção PilhaVaziaErro.
 
 ## 2.4. Evidência de Testes
 *(Relatório simples dos testes de estresse executados, demonstrando que o código refatorado por você supera o código ingênuo gerado inicialmente pelo modelo).*
