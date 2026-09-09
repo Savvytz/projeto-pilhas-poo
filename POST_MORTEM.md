@@ -6,13 +6,13 @@
 (Fornecer os techos de código desenvolvidos pela ia antes de quaisquer modificações manuais)
 
 * **Prompt Utilizado:** Em Python, crie uma estrutura de dados Pilha com classes POO que deve aceitar somente um único tipo de linguagem (caractere, inteiro ou ponto flutuante). Para seu armazenamento interno, utilize um array da biblioteca padrão do Python. Os metodos da estrutura devem ser:
-* 
-1. . Empilha(dado) : empilha um dado no topo da pilha. Se a pilha estiver cheia, deve levantar a exceção “PilhaCheiaErro”. Se o dado não for do tipo básico armazenado pela Pilha, deve levantar a exceção “TipoErro”
-2. .   Desempilha() -> dado : desempilha o dado do topo da pilha, retornando-o. Se a pilha estiver vazia deve levantar a exceção “PilhaVaziaErro”
-3. .   pilha_esta_vazia() : retorna True se a pilha estiver vazia
-4. .   pilha_esta_cheia() : retorna True se a pilha estiver cheia
-5. .   troca() : troca o dado do topo da pilha com o dado imediatamente abaixo
-6. .   tamanho() : retorna o número de dados empilhados
+  
+   1. . Empilha(dado) : empilha um dado no topo da pilha. Se a pilha estiver cheia, deve levantar a exceção “PilhaCheiaErro”. Se o dado não for do tipo básico armazenado pela Pilha, deve levantar a exceção “TipoErro”
+   2. .   Desempilha() -> dado : desempilha o dado do topo da pilha, retornando-o. Se a pilha estiver vazia deve levantar a exceção “PilhaVaziaErro”
+   3. .   pilha_esta_vazia() : retorna True se a pilha estiver vazia
+   4. .   pilha_esta_cheia() : retorna True se a pilha estiver cheia
+   5. .   troca() : troca o dado do topo da pilha com o dado imediatamente abaixo
+   6. .   tamanho() : retorna o número de dados empilhados
    
 * **Código Bruto da IA:**
   ```python
