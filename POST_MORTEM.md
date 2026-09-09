@@ -72,11 +72,11 @@
 ## 1.2 Code Review Crítico
 *(Análise da solução inicial gerada pela IA, identificando falhas de eficiência, complexidade e segurança nas três linguagens)*
 
-* **Eficiência** O código apresenta boa eficiência nas operações principais, utilizando $append()$ e $pop()$ no final da estrutura, com custo $O(1)$. Porém, há uma inconsistência no armazenamento, pois $array$ é utilizado para $int$ e $float$, enquanto str utiliza uma lista.
+* **Eficiência** O código apresenta boa eficiência nas operações principais, utilizando append() e pop() no final da estrutura, com custo O(1). Porém, há uma inconsistência no armazenamento, pois array é utilizado para int e float, enquanto str utiliza uma lista.
   
-* **Complexidade** As operações da pilha possuem complexidade $O(1)$ A principal falha está na falta de validação da capacidade recebida pelo construtor.
+* **Complexidade** As operações da pilha possuem complexidade O(1) A principal falha está na falta de validação da capacidade recebida pelo construtor.
   
-* **Segurança** Não há riscos de segurança significativos, mas existem problemas de robustez. A capacidade não é validada e a ordem das verificações em %empilha()% pode fazer com que uma exceção de pilha cheia seja lançada antes da verificação do tipo do dado.
+* **Segurança** Não há riscos de segurança significativos, mas existem problemas de robustez. A capacidade não é validada e a ordem das verificações em empilha() pode fazer com que uma exceção de pilha cheia seja lançada antes da verificação do tipo do dado.
 
 ## 1.3. Justificativa de Refatoração
 *(Adicionar detalhadamente quais alterações foram realizadas no código para atender aos requisitos de desempenho, correção e testes solicitados)*
@@ -84,16 +84,16 @@
 Após a análise do código bruto gerado pela IA, realizamos as seguintes refatorações manuais:
 
 ### Tratamento de Exceções Obrigatórias
-* **Problema inicial:**
+* **Problema inicial:** A validação do tipo do dado era realizada somente depois da verificação de capacidade da pilha, podendo gerar uma exceção diferente da esperada.
   
-* **Alteração realizada:**
+* **Alteração realizada:** Foi alterada a ordem das validações para que o tipo do dado seja verificado antes de verificar se a pilha está cheia. Dessa forma, entradas com tipo inválido geram corretamente a exceção TipoErro, enquanto a PilhaCheiaErro é utilizada quando o dado é válido, mas a pilha já atingiu sua capacidade.
   
 
 ### Ajustes de Desempenho e Estrutura 
-
+Foram mantidas as operações no final da estrutura, garantindo que empilha e desempilha continuem com complexidade O(1).
   
 ### Refinamento dos Métodos Auxiliares (`troca` e `tamanho`)
-* **Alteração realizada:**
+* **Alteração realizada:** Os métodos troca() e tamanho() foram mantidos utilizando operações de acesso direto. Dessa forma, troca() realiza apenas a substituição dos dois elementos do topo e tamanho() utiliza diretamente o número de elementos armazenados, mantendo ambos com complexidade O(1).
 
 ## 1.4. Evidência de Testes
 *(Relatório simples dos testes de estresse executados, demonstrando que o código refatorado por você supera o código ingênuo gerado inicialmente pelo modelo).*
