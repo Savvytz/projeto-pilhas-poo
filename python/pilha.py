@@ -1,4 +1,3 @@
-#Atenção ao uso da clafrom array import array
 
 class PilhaCheiaErro(Exception):
     pass
