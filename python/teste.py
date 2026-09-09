@@ -1,6 +1,4 @@
-from pilha import Pilha, PilhaCheiaErro, PilhaVaziaErro, TipoErro
 import time
-
 
 # ============================================================
 # 1. TESTE DE EMPILHAR E DESEMPILHAR
