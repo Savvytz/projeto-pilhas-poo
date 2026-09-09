@@ -98,6 +98,23 @@ Foram mantidas as operações no final da estrutura, garantindo que empilha e de
 ## 1.4. Evidência de Testes
 *(Relatório simples dos testes de estresse executados, demonstrando que o código refatorado por você supera o código ingênuo gerado inicialmente pelo modelo).*
 
+Resultado dos testes: 
+
+Teste de Empilhar e Desempilhar: Verificou-se a correta inserção e remoção de elementos, assegurando que os elementos são desempilhados na ordem inversa em que foram empilhados (LIFO).
+
+Teste de Pilha Cheia: Confirmou-se que a exceção PilhaCheiaErro é corretamente disparada ao tentar empilhar um elemento em uma pilha que já atingiu sua capacidade máxima.
+
+Teste de Tipo Inválido: A exceção TipoErro foi levantada apropriadamente ao tentar empilhar um dado de tipo incompatível com o tipo definido para a pilha, garantindo a restrição de tipos.
+
+Teste de Pilha Vazia: A exceção PilhaVaziaErro foi disparada conforme esperado ao tentar desempilhar de uma pilha que não contém elementos.
+
+Teste do Método Troca: Validou-se que o método troca inverte os dois elementos do topo da pilha de forma eficaz e sem erros, mesmo com poucos elementos.
+
+Teste de Estado da Pilha: Os métodos pilha_esta_vazia() e pilha_esta_cheia() funcionaram corretamente, reportando o estado da pilha de forma precisa em diferentes momentos (inicialmente vazia, cheia, e vazia após remoções).
+
+Teste dos Tipos Suportados: A implementação foi testada com sucesso para os tipos int, float e str, demonstrando que a pilha consegue armazenar e manipular dados desses tipos conforme especificado.
+
+Teste de Estresse: A pilha demonstrou robustez e eficiência ao lidar com 2.000.000 de operações (1 milhão de empilhamentos seguidos por 1 milhão de desempilhamentos). O tempo de execução foi adequado e a pilha retornou ao estado vazio, indicando boa performance sob carga.
   
 ## 2. C++
 ## 2.1. Log de interação e Prompts
