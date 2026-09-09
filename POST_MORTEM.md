@@ -16,58 +16,58 @@
    
 * **Código Bruto da IA:**
   ```python
-from array import array
+  
+   from array import array
 
-class PilhaCheiaErro(Exception):
+   class PilhaCheiaErro(Exception):
     pass
 
-class PilhaVaziaErro(Exception):
-    pass
+   class PilhaVaziaErro(Exception):
+       pass
 
-class TipoErro(Exception):
-    pass
+   class TipoErro(Exception):
+       pass
 
+   class Pilha:
+       def __init__(self, tipo, capacidade):
+           if tipo not in (int, float, str):
+               raise TipoErro("A pilha só pode armazenar int, float ou str.")
+           self.tipo = tipo
+           self.capacidade = capacidade
+           if tipo == int:
+               self.dados = array('i')
+           elif tipo == float:
+               self.dados = array('d')
+           else:
+               self.dados = []
 
-class Pilha:
-    def __init__(self, tipo, capacidade):
-        if tipo not in (int, float, str):
-            raise TipoErro("A pilha só pode armazenar int, float ou str.")
-        self.tipo = tipo
-        self.capacidade = capacidade
-        if tipo == int:
-            self.dados = array('i')
-        elif tipo == float:
-            self.dados = array('d')
-        else:
-            self.dados = []
+       def empilha(self, dado):
+           if self.pilha_esta_cheia():
+               raise PilhaCheiaErro("PilhaCheiaErro")
+           if type(dado) is not self.tipo:
+               raise TipoErro("TipoErro")
+           self.dados.append(dado)
 
-    def empilha(self, dado):
-        if self.pilha_esta_cheia():
-            raise PilhaCheiaErro("PilhaCheiaErro")
-        if type(dado) is not self.tipo:
-            raise TipoErro("TipoErro")
-        self.dados.append(dado)
+       def desempilha(self):
+           if self.pilha_esta_vazia():
+               raise PilhaVaziaErro("PilhaVaziaErro")
+           return self.dados.pop()
 
-    def desempilha(self):
-        if self.pilha_esta_vazia():
-            raise PilhaVaziaErro("PilhaVaziaErro")
-        return self.dados.pop()
+       def pilha_esta_vazia(self):
+           return len(self.dados) == 0
 
-    def pilha_esta_vazia(self):
-        return len(self.dados) == 0
-
-    def pilha_esta_cheia(self):
-        return len(self.dados) == self.capacidade
+       def pilha_esta_cheia(self):
+           return len(self.dados) == self.capacidade
         
-    def troca(self):
-        if self.tamanho() < 2:
-            raise PilhaVaziaErro(
-                "É necessário ter pelo menos dois elementos para trocar."
-            )
-        self.dados[-1], self.dados[-2] = self.dados[-2], self.dados[-1]
+       def troca(self):
+           if self.tamanho() < 2:
+               raise PilhaVaziaErro(
+                   "É necessário ter pelo menos dois elementos para trocar."
+               )
+           self.dados[-1], self.dados[-2] = self.dados[-2], self.dados[-1]
 
-    def tamanho(self):
-        return len(self.dados)
+       def tamanho(self):
+           return len(self.dados)
 
 ## 1.2 Code Review Crítico
 *(Análise da solução inicial gerada pela IA, identificando falhas de eficiência, complexidade e segurança nas três linguagens)*
