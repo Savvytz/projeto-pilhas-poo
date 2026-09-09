@@ -5,10 +5,69 @@
 ## 1.1. Log de interação e Prompts
 (Fornecer os techos de código desenvolvidos pela ia antes de quaisquer modificações manuais)
 
-* **Prompt Utilizado:** 
+* **Prompt Utilizado:** Em Python, crie uma estrutura de dados Pilha com classes POO que deve aceitar somente um único tipo de linguagem (caractere, inteiro ou ponto flutuante). Para seu armazenamento interno, utilize um array da biblioteca padrão do Python. Os metodos da estrutura devem ser:
+* 
+1. . Empilha(dado) : empilha um dado no topo da pilha. Se a pilha estiver cheia, deve levantar a exceção “PilhaCheiaErro”. Se o dado não for do tipo básico armazenado pela Pilha, deve levantar a exceção “TipoErro”
+2. .   Desempilha() -> dado : desempilha o dado do topo da pilha, retornando-o. Se a pilha estiver vazia deve levantar a exceção “PilhaVaziaErro”
+3. .   pilha_esta_vazia() : retorna True se a pilha estiver vazia
+4. .   pilha_esta_cheia() : retorna True se a pilha estiver cheia
+5. .   troca() : troca o dado do topo da pilha com o dado imediatamente abaixo
+6. .   tamanho() : retorna o número de dados empilhados
+   
 * **Código Bruto da IA:**
   ```python
-  #Códgio aqui
+from array import array
+
+class PilhaCheiaErro(Exception):
+    pass
+
+class PilhaVaziaErro(Exception):
+    pass
+
+class TipoErro(Exception):
+    pass
+
+
+class Pilha:
+    def __init__(self, tipo, capacidade):
+        if tipo not in (int, float, str):
+            raise TipoErro("A pilha só pode armazenar int, float ou str.")
+        self.tipo = tipo
+        self.capacidade = capacidade
+        if tipo == int:
+            self.dados = array('i')
+        elif tipo == float:
+            self.dados = array('d')
+        else:
+            self.dados = []
+
+    def empilha(self, dado):
+        if self.pilha_esta_cheia():
+            raise PilhaCheiaErro("PilhaCheiaErro")
+        if type(dado) is not self.tipo:
+            raise TipoErro("TipoErro")
+        self.dados.append(dado)
+
+    def desempilha(self):
+        if self.pilha_esta_vazia():
+            raise PilhaVaziaErro("PilhaVaziaErro")
+        return self.dados.pop()
+
+    def pilha_esta_vazia(self):
+        return len(self.dados) == 0
+
+    def pilha_esta_cheia(self):
+        return len(self.dados) == self.capacidade
+        
+    def troca(self):
+        if self.tamanho() < 2:
+            raise PilhaVaziaErro(
+                "É necessário ter pelo menos dois elementos para trocar."
+            )
+        self.dados[-1], self.dados[-2] = self.dados[-2], self.dados[-1]
+
+    def tamanho(self):
+        return len(self.dados)
 
 ## 1.2 Code Review Crítico
 *(Análise da solução inicial gerada pela IA, identificando falhas de eficiência, complexidade e segurança nas três linguagens)*
