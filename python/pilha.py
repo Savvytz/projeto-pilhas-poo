@@ -1,9 +1,14 @@
 
+from array import array
+
+
 class PilhaCheiaErro(Exception):
     pass
 
+
 class PilhaVaziaErro(Exception):
     pass
+
 
 class TipoErro(Exception):
     pass
@@ -11,45 +16,61 @@ class TipoErro(Exception):
 
 class Pilha:
     def __init__(self, tipo, capacidade):
-
+        # Validação do tipo
         if tipo not in (int, float, str):
-            raise TipoErro("A pilha só pode armazenar int, float ou str.")
+            raise TipoErro(
+                "A pilha só pode armazenar int, float ou str."
+            )
+
+        # Validação da capacidade
+        if not isinstance(capacidade, int) or capacidade <= 0:
+            raise ValueError(
+                "A capacidade deve ser um inteiro positivo."
+            )
 
         self.tipo = tipo
         self.capacidade = capacidade
 
-        if tipo == int:
+       
+        if tipo is int:
             self.dados = array('i')
-        elif tipo == float:
+        elif tipo is float:
             self.dados = array('d')
         else:
             self.dados = []
 
 
     def empilha(self, dado):
-        """Empilha um dado no topo da pilha."""
-
-        if self.pilha_esta_cheia():
-            raise PilhaCheiaErro("PilhaCheiaErro")
-
-        # Verifica se o dado possui o tipo correto
+        # Primeiro verifica se o tipo do dado é válido
         if type(dado) is not self.tipo:
-            raise TipoErro("TipoErro")
+            raise TipoErro(
+                "O dado possui tipo incompatível com a pilha."
+            )
+
+        # Depois verifica se há espaço
+        if self.pilha_esta_cheia():
+            raise PilhaCheiaErro(
+                "A pilha está cheia."
+            )
 
         self.dados.append(dado)
 
 
     def desempilha(self):
         if self.pilha_esta_vazia():
-            raise PilhaVaziaErro("PilhaVaziaErro")
+            raise PilhaVaziaErro(
+                "A pilha está vazia."
+            )
+
         return self.dados.pop()
 
+
     def pilha_esta_vazia(self):
-        return len(self.dados) == 0
+        return not self.dados
 
 
     def pilha_esta_cheia(self):
-        return len(self.dados) == self.capacidade
+        return len(self.dados) >= self.capacidade
 
 
     def troca(self):
@@ -57,7 +78,12 @@ class Pilha:
             raise PilhaVaziaErro(
                 "É necessário ter pelo menos dois elementos para trocar."
             )
-        self.dados[-1], self.dados[-2] = self.dados[-2], self.dados[-1]
+
+        self.dados[-1], self.dados[-2] = (
+            self.dados[-2],
+            self.dados[-1]
+        )
+
 
     def tamanho(self):
-        return len(self.dados)sse Array da biblioteca padrão
+        return len(self.dados)
