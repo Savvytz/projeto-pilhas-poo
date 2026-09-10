@@ -33,7 +33,7 @@
             print(linha_formatada)
         print("-" * len(matriz[0]))
     
-    # Exemplo de uso inicial bruto gerado pelo modelo:
+    
     if __name__ == "__main__":
         # Matriz de exemplo baseada no enunciado
         matriz_exemplo = [
