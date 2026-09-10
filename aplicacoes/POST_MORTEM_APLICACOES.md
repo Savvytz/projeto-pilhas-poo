@@ -178,18 +178,156 @@ Após a análise do código bruto gerado pela IA, realizamos as seguintes refato
 
 ### 2.1. Log de Iteração e Prompts
 * **Prompt para solução recursiva:**
+ faça um código que solucione a Torre de Hanoi com N discos usando uma rotina recursiva.
+
+  A torre é uma pilha de n discos com raios crescentes e há 3 pinos, o objetivo é mover a pilha de discos de sua posição "pino inicial" para outro pino "Pino destino" usando como pino intermediario o terceiro pino.
+  
+  
+  Regra de movimentação:
+  
+  1.     Só se pode mover um disco de cada vez, do topo de uma pilha para o topo de outra pilha;
+  
+  2.      Não se pode mover um disco maior para cima de um disco menor.
+  
+  
+  O programa deve, apresentar a formação inicial e final das pilhas de discos e o número total de movimentos de discos utilizados para solucionar o problema.
+  
+  Permita que o usuário especifique a quantidade M de “movimentações de discos” entre duas visualizações dos pinos com as pilhas de discos, a qual deve também apresentar o número de movimentos de discos acumulados entre os dois momentos. O programa deve aguardar por um [ENTER] do usuário para prosseguir aos próximos M passos. O padrão é que o programa apresente as pilhas de discos passo a passo (M = 1), aguardando o [ENTER] do usuário para prosseguir. 
+  
+   formatação de saída em terminal, apresente as pilhas na vertical
   * **Código bruto retornado pela IA (Recursivo):**
   ```python
-  # [Cole aqui o código bruto inicial que a IA gerou sem alterações]
+  class Pilha:
+    def __init__(self, capacidade):
+        self.capacidade = capacidade
+        self.dados = []
+        
+    def empilha(self, dado):
+        if len(self.dados) >= self.capacidade:
+            raise Exception("PilhaCheiaErro")
+        self.dados.append(dado)
+        
+    def desempilha(self):
+        if not self.dados:
+            raise Exception("PilhaVaziaErro")
+        return self.dados.pop()
+        
+    def pilha_esta_vazia(self):
+        return len(self.dados) == 0
+        
+    def pilha_esta_cheia(self):
+        return len(self.dados) == self.capacidade
+        
+    def tamanho(self):
+        return len(self.dados)
 
-* **Prompt para solução interativa:**
-* **Código bruto retornado pela IA (Interativo):**
-  ```python
-  # [Cole aqui o código bruto inicial que a IA gerou sem alterações]
+
+  def exibir_hanoi(pinos, n, movimentos, total_movimentos):
+      print(f"\n--- Movimentos Acumulados: {movimentos} (Total: {total_movimentos}) ---")
+      
+    # Renderização vertical das pilhas
+    # Os pinos são representados por listas. O topo da pilha é o final da lista.
+    for nivel in range(n - 1, -1, -1):
+        linha = []
+        for pino in pinos:
+            # Se a altura da pilha atingir este nível, desenha o disco
+            if nivel < pino.tamanho():
+                # Para exibir o disco de forma proporcional, podemos usar '#' multiplicado pelo tamanho ou valor
+                # Como os discos podem ser representados por números de 1 até n:
+                disco = pino.dados[nivel]
+                largura = disco * 2 + 1
+                bloco = "#" * largura
+                # Centraliza visualmente o disco em uma coluna de largura fixa (ex: 2*n + 3)
+                espacos = " " * (n - disco)
+                linha.append(f"{espacos}{bloco}{espacos}")
+            else:
+                # Caso contrário, desenha apenas a haste central '|'
+                espacos = " " * n
+                linha.append(f"{espacos}|{espacos}")
+        print("   ".join(linha))
+    
+    # Base dos pinos
+    base = "-" * (2 * n + 1)
+    print(f"{base}   {base}   {base}")
+    print("     Pino A        Pino B        Pino C    ")
+    print("=" * 45)
+
+
+    def hanoi_recursivo(n, origem, destino, auxiliar, pinos, M, estado_controle):
+        if n == 1:
+            # Move o disco do pino de origem para o de destino
+            disco = origem.desempilha()
+            destino.empilha(disco)
+        
+        estado_controle["movimentos_bloco"] += 1
+        estado_controle["total_geral"] += 1
+        
+        # Verifica se atingiu a quantidade M de passos para exibir
+        if M > 0 and estado_controle["movimentos_bloco"] >= M:
+            exibir_hanoi(pinos, estado_controle["n_discos"], estado_controle["total_geral"], estado_controle["total_geral"])
+            input("Pressione [ENTER] para prosseguir...")
+            estado_controle["movimentos_bloco"] = 0
+        return
+
+    # 1. Move n-1 discos da origem para o auxiliar
+    hanoi_recursivo(n - 1, origem, auxiliar, destino, pinos, M, estado_controle)
+    
+    # 2. Move o disco restante da origem para o destino
+    disco = origem.desempilha()
+    destino.empilha(disco)
+    
+    estado_controle["movimentos_bloco"] += 1
+    estado_controle["total_geral"] += 1
+    
+    if M > 0 and estado_controle["movimentos_bloco"] >= M:
+        exibir_hanoi(pinos, estado_controle["n_discos"], estado_controle["total_geral"], estado_controle["total_geral"])
+        input("Pressione [ENTER] para prosseguir...")
+        estado_controle["movimentos_bloco"] = 0
+        
+    # 3. Move os n-1 discos do auxiliar para o destino
+    hanoi_recursivo(n - 1, auxiliar, destino, origem, pinos, M, estado_controle)
+
+
+    if __name__ == "__main__":
+        n = int(input("Digite a quantidade de discos (N): "))
+        
+    # O usuário especifica a quantidade M de movimentações entre visualizações (Padrão M = 1)
+    entrada_m = input("Digite a quantidade M de movimentações entre exibições (Padrão = 1): ")
+    M = int(entrada_m) if entrada_m.strip() != "" else 1
+
+    # Criação dos 3 pinos utilizando a estrutura de Pilha
+    pino_a = Pilha(n)
+    pino_b = Pilha(n)
+    pino_c = Pilha(n)
+
+    # Inicializa o pino A com os discos em ordem decrescente de tamanho (do maior embaixo para o menor no topo)
+    # Exemplo: para N=3, empilha 3, depois 2, depois 1 no topo.
+    for i in range(n, 0, -1):
+        pino_a.empilha(i)
+
+    pinos = [pino_a, pino_b, pino_c]
+
+    print("\n--- Formação Inicial das Pilhas ---")
+    exibir_hanoi(pinos, n, 0, 0)
+    if M > 0:
+        input("Pressione [ENTER] para iniciar a execução...")
+
+    estado_controle = {
+        "movimentos_bloco": 0,
+        "total_geral": 0,
+        "n_discos": n
+    }
+
+    # Executa a recursão da Torre de Hanói (Origem: A, Destino: C, Auxiliar: B)
+    hanoi_recursivo(n, pino_a, pino_c, pino_b, pinos, M, estado_controle)
+
+    print("\n--- Formação Final das Pilhas ---")
+    exibir_hanoi(pinos, n, estado_controle["total_geral"], estado_controle["total_geral"])
+    print(f"Resolução concluída com sucesso! Número total de movimentos: {estado_controle['total_geral']}")
 
 ## 2.2 Code Review Crítico
-*(Análise da solução inicial gerada pela IA, identificando falhas de eficiência, complexidade e segurança nas três linguagens)*
-
+*(Análise da solução inicial gerada pela IA, identificando falhas de eficiência, complexidade e segurança)*
+##AQUI DA para citar que a ia não usou o modelo de array verdadeiro, com import e tudo mais, usou apenas uma manipulação de listas
 * **Eficiência**
 * **Complexidade**
 * **Segurança**
