@@ -144,7 +144,11 @@
     exibir_matriz(matriz)
 
 ## 1.2 Code Review Crítico
-*(Análise da solução inicial gerada pela IA, identificando falhas de eficiência, complexidade e segurança nas três linguagens)*
+*(Análise da solução inicial gerada pela IA, identificando falhas de eficiência, complexidade e segurança)*
+
+
+## QUEM FOR FAZER ESSE AQUI PODE CITAR QUE A VERSÃO GERADA POR IA NÃO IMPLEMENTOU UMA ESTRUTURA DE LEITURA EM ARQUIVO
+## Outra exigência tamém não implementada pela ia foi a exigencia de renderização com bitmap, e tampouco teve o suporte a cores em estilo Microsoft PAINT, exigido no prompt inicial!!!!!
 
 * **Eficiência**
 * **Complexidade**
