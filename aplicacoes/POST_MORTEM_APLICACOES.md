@@ -146,13 +146,14 @@
 ## 1.2 Code Review Crítico
 *(Análise da solução inicial gerada pela IA, identificando falhas de eficiência, complexidade e segurança)*
 
+Eficiência
+A IA implementou a pilha utilizando listas nativas do Python em vez de uma estrutura de array explícita. Além disso, a função de exibição visual é executada repetidas vezes, criando um gargalo de I/O que pode deixar o programa lento para valores maiores de N.
 
-## QUEM FOR FAZER ESSE AQUI PODE CITAR QUE A VERSÃO GERADA POR IA NÃO IMPLEMENTOU UMA ESTRUTURA DE LEITURA EM ARQUIVO
-## Outra exigência tamém não implementada pela ia foi a exigencia de renderização com bitmap, e tampouco teve o suporte a cores em estilo Microsoft PAINT, exigido no prompt inicial!!!!!
+Complexidade
+O algoritmo recursivo possui complexidade de tempo O(2^n), realizando exatamente 2^n-1 movimentos. Embora as operações da pilha, como append e pop, sejam eficientes O(1), a reconstrução da visualização no terminal a cada etapa aumenta o custo de execução. O enunciado, inclusive, exige essas visualizações entre os movimentos.
 
-* **Eficiência**
-* **Complexidade**
-* **Segurança**
+Segurança
+Falta validação adequada das entradas do usuário. Valores não numéricos causam erro e um N muito grande pode tornar a execução impraticável ou atingir o limite de recursão. Além disso, a classe Pilha não possui mecanismos próprios para impedir a colocação de um disco maior sobre um menor.
 
 ## 1.3. Justificativa de Refatoração
 *(Adicionar detalhadamente quais alterações foram realizadas no código para atender aos requisitos de desempenho, correção e testes solicitados)*
