@@ -145,7 +145,6 @@
     exibir_matriz(matriz)
 
 ## 1.2 Code Review Crítico
-*(Análise da solução inicial gerada pela IA, identificando falhas de eficiência, complexidade e segurança)*
 
 **Eficiência:**
 Os códigos, tanto o "Recursivo" quanto o "Iterativo", implementaram de fato uma estrutura de pilha: A segunda versão, apesar de o prompt pedir explicitamente uma solução baseada em uma pilha de posições (Linha, Coluna), apenas reaproveita a mesma função recursiva original com parâmetros extras de contagem (P, contador). Ou seja, a IA não atendeu ao que foi pedido nessa segunda entrega. Além disso, a função é chamada repetidamente com um print() por linha, gerando overhead de I/O a cada apresentação da matriz.
@@ -184,7 +183,6 @@ A versão iterativa, usando a Pilha em array, não tem esse limite (profundidade
 
 
 ## 1.4. Evidência de Testes
-*(Relatório simples dos testes de estresse executados, demonstrando que o código refatorado por você supera o código ingênuo gerado inicialmente pelo modelo).*
 
 Teste de Empilhar e Desempilhar: Verificou-se a correta inserção e remoção de elementos na estrutura de pilha, assegurando que os elementos são desempilhados na ordem inversa em que foram empilhados (LIFO).
 
@@ -360,7 +358,6 @@ Teste do Solucionador de Labirinto: Verificou-se a capacidade do algoritmo de pe
     print(f"Resolução concluída com sucesso! Número total de movimentos: {estado_controle['total_geral']}")
 
 ## 2.2 Code Review Crítico
-*(Análise da solução inicial gerada pela IA, identificando falhas de eficiência, complexidade e segurança)*
 
 * **Eficiência**
   * A IA implementou a pilha utilizando listas nativas do Python em vez de uma estrutura de array explícita. Além disso, a função de exibição visual é executada repetidas vezes, criando um gargalo de I/O que pode deixar o programa lento para valores maiores de N.
@@ -399,7 +396,6 @@ Seguindo a mesma ideia do problema anterior, o exibir_hanoi() monta toda a repre
 Foram mantidos e aprimorados os métodos auxiliares responsáveis pelo controle da pilha. O método tamanho() foi utilizado para determinar a quantidade de discos presentes em cada pino durante a exibição do estado da Torre de Hanoi. Também foram utilizados os métodos pilha_vazia() e pilha_cheia() para controlar os limites da estrutura e evitar operações inválidas. Além disso, o método topo_valor() permite consultar o disco presente no topo sem removê-lo.
 
 ## 2.4. Evidência de Testes
-*(Relatório simples dos testes de estresse executados, demonstrando que o código refatorado por você supera o código ingênuo gerado inicialmente pelo modelo).*
 
 Teste de Empilhar e Desempilhar: Verificou-se a correta inserção e remoção dos discos na pilha, assegurando que os elementos são desempilhados na ordem inversa em que foram empilhados (LIFO).
 
