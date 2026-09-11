@@ -197,6 +197,28 @@ Foi adicionada a função resolver_labirinto(), que interrompe a busca assim que
 ## 1.4. Evidência de Testes
 *(Relatório simples dos testes de estresse executados, demonstrando que o código refatorado por você supera o código ingênuo gerado inicialmente pelo modelo).*
 
+Teste de Empilhar e Desempilhar: Verificou-se a correta inserção e remoção de elementos na estrutura de pilha, assegurando que os elementos são desempilhados na ordem inversa em que foram empilhados (LIFO).
+
+Teste de Redimensionamento da Pilha: Verificou-se que a pilha aumenta automaticamente sua capacidade quando o limite inicial é atingido, permitindo a inserção de novos elementos sem perda dos dados já armazenados.
+
+Teste de Pilha Vazia: Verificou-se o tratamento correto da tentativa de desempilhar um elemento quando a pilha está vazia, retornando a exceção prevista.
+
+Teste de Localização do Elemento X: Verificou-se a correta identificação da posição do elemento X na matriz, retornando suas coordenadas quando o elemento está presente.
+
+Teste de Elemento X Inexistente: Verificou-se o tratamento adequado de matrizes que não possuem o elemento X, evitando a execução do algoritmo a partir de uma posição inválida.
+
+Teste do Flood Fill Recursivo: Verificou-se o preenchimento correto das regiões conectadas da matriz a partir da posição inicial, respeitando os limites e as células que não deveriam ser preenchidas.
+
+Teste do Flood Fill Iterativo: Verificou-se que a versão iterativa realiza o mesmo preenchimento esperado pela versão recursiva, utilizando a estrutura de pilha para controlar as células a serem processadas.
+
+Teste de Comparação entre as Versões: Compararam-se os resultados obtidos pelas versões recursiva e iterativa, verificando que ambas produzem o mesmo resultado para a mesma matriz de entrada.
+
+Teste de Arquivo Inexistente: Verificou-se o tratamento de uma tentativa de leitura de um arquivo que não existe, apresentando a mensagem de erro correspondente sem interromper inadequadamente a execução.
+
+Teste de Matriz Inválida: Verificou-se o tratamento de matrizes com linhas de tamanhos diferentes, identificando corretamente a entrada como inválida.
+
+Teste do Solucionador de Labirinto: Verificou-se a capacidade do algoritmo de percorrer a matriz e encontrar o caminho esperado no labirinto, respeitando as condições de movimentação estabelecidas
+
 ## 2. Problema II: Torre de Hanoi
 
 ### 2.1. Log de Iteração e Prompts
