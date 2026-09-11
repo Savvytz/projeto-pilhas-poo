@@ -3,7 +3,6 @@
 ## 1. Python 
 
 ## 1.1. Log de interação e Prompts
-(Fornecer os techos de código desenvolvidos pela ia antes de quaisquer modificações manuais)
 
 * **Prompt Utilizado:** Em Python, crie uma estrutura de dados Pilha com classes POO que deve aceitar somente um único tipo de linguagem (caractere, inteiro ou ponto flutuante). Para seu armazenamento interno, utilize um array da biblioteca padrão do Python. Os metodos da estrutura devem ser:
   
@@ -70,7 +69,6 @@
            return len(self.dados)
 
 ## 1.2 Code Review Crítico
-*(Análise da solução inicial gerada pela IA, identificando falhas de eficiência, complexidade e segurança nas três linguagens)*
 
 * **Eficiência** O código apresenta boa eficiência nas operações principais, utilizando append() e pop() no final da estrutura, com custo O(1). Porém, há uma inconsistência no armazenamento, pois array é utilizado para int e float, enquanto str utiliza uma lista.
   
@@ -96,7 +94,6 @@ Foram mantidas as operações no final da estrutura, garantindo que empilha e de
 * **Alteração realizada:** Os métodos troca() e tamanho() foram mantidos utilizando operações de acesso direto. Dessa forma, troca() realiza apenas a substituição dos dois elementos do topo e tamanho() utiliza diretamente o número de elementos armazenados, mantendo ambos com complexidade O(1).
 
 ## 1.4. Evidência de Testes
-*(Relatório simples dos testes de estresse executados, demonstrando que o código refatorado por você supera o código ingênuo gerado inicialmente pelo modelo).*
 
 Resultado dos testes: 
 
@@ -118,7 +115,6 @@ Teste de Estresse: A pilha demonstrou robustez e eficiência ao lidar com 2.000.
   
 ## 2. C++
 ## 2.1. Log de interação e Prompts
-(Fornecer os techos de código desenvolvidos pela ia antes de quaisquer modificações manuais)
 
 * **Prompt Utilizado:** Crie uma classe POO em C++ para implementar uma estrutura de dados Pilha usando um array nativo de capacidade fixa para armazenar um tipo básico. A classe deve implementar os seguintes métodos: empilha(dado), desempilha(), pilha_esta_vazia(), pilha_esta_cheia(), troca() e tamanho(). Trate os limites da pilha lançando exceções personalizadas chamadas PilhaCheiaErro e PilhaVaziaErro estendendo std::exception.
   
@@ -182,7 +178,6 @@ Teste de Estresse: A pilha demonstrou robustez e eficiência ao lidar com 2.000.
   };
   
 ## 2.2 Code Review Crítico
-*(Análise da solução inicial gerada pela IA, identificando falhas de eficiência, complexidade e segurança nas três linguagens)*
 
 * **Eficiência**
   * A IA fez o uso de um array contíguo em memória, com isso, todas as operações operam em tempo constante $O(1)$ e aproveitam a localidade espacial de referência, otimizando o uso do cache da CPU
@@ -192,7 +187,6 @@ Teste de Estresse: A pilha demonstrou robustez e eficiência ao lidar com 2.000.
   * O processo tem algumas falhas no quesito segurança, deixando o programa consideravelmente vulnerável, pontos como a ausência de validação defensiva na instanciação e insegurança de acesso por índices desprptegidos fez com que houvesse mudanças depois de alguns testes efetuados.
 
 ## 2.3. Justificativa de Refatoração
-*(Adicionar detalhadamente quais alterações foram realizadas no código para atender aos requisitos de desempenho, correção e testes solicitados)*
 
   Após a análise do código bruto gerado pela IA, realizamos as seguintes refatorações manuais :
 
@@ -222,7 +216,6 @@ Teste de Estresse: A pilha demonstrou robustez e eficiência ao lidar com 2.000.
    * **Otimização do Método troca():** A validação do topo foi simplificada para checar diretamente a condição de limite dos índices internos, evitando chamadas indiretas desnecessárias sem perder o rigor no tratamento da exceção PilhaVaziaErro.
 
 ## 2.4. Evidência de Testes
-*(Relatório simples dos testes de estresse executados, demonstrando que o código refatorado por você supera o código ingênuo gerado inicialmente pelo modelo).*
 [SUÍTE DE TESTES] Iniciando validação da classe Pilha Refatorada...
 
    *[TESTE 1] Inserção e Remoção Sequencial (Pilha<int>)*
@@ -256,7 +249,6 @@ Teste de Estresse: A pilha demonstrou robustez e eficiência ao lidar com 2.000.
 ## 3. JavaScript 
 
 ## 3.1. Log de interação e Prompts 
-(Fornecer os techos de código desenvolvidos pela ia antes de quaisquer modificações manuais)
 
 * **Prompt Utilizado:** Gere um código em javascript que implementa uma estrutura de dados do tipo PILHA com classes POO que deve aceitar apenas dados de um mesmo tipo básico da linguagem. O armazenamento interno pode ser inicialmente um array padrão da biblioteca.
 
@@ -339,7 +331,6 @@ Teste de Estresse: A pilha demonstrou robustez e eficiência ao lidar com 2.000.
   }
 
 ## 3.2 Code Review Crítico
-*(Análise da solução inicial gerada pela IA, identificando falhas de eficiência, complexidade e segurança nas três linguagens)*
 
 * **Eficiência**
   * A IA utilizou um array dinâmico nativo (`[]`). Embora funcione, academicamente falando, um array dinâmico comum redimensiona a memória por baixo dos panos, oque pode causar sobrecarga(overhead).
@@ -350,7 +341,6 @@ Teste de Estresse: A pilha demonstrou robustez e eficiência ao lidar com 2.000.
 
 
 ## 3.3. Justificativa de Refatoração
-*(Adicionar detalhadamente quais alterações foram realizadas no código para atender aos requisitos de desempenho, correção e testes solicitados)*
 
 Após a análise do código bruto gerado pela IA, realizamos as seguintes refatorações manuais:
 
@@ -370,7 +360,7 @@ Refatoramos a lógica do método `troca()`. O código bruto da IA removia e rein
   
 
 ## 3.4. Evidência de Testes
-*(Relatório simples dos testes de estresse executados, demonstrando que o código refatorado por você supera o código ingênuo gerado inicialmente pelo modelo).*
+
 * **Relatório de Estresse e Validação:**
   Desenvolvemos uma suíte de testes automatizados para submeter a pilha refatorada a cenários extremos. O script executou com sucesso as seguintes validações:
   1. **Estouro de Capacidade:** A pilha com limite fixado em 3 elementos disparou corretamente a exceção `PilhaCheiaErro` ao tentar inserir um 4º elemento.
