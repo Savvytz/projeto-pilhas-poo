@@ -158,7 +158,6 @@ O flood fill possui complexidade de tempo O(L x C), pois cada célula é visitad
  Além disso, duas exigências explicitas no prompt não foram atendidas, sendo elas a leitura de arquivo e a visualização em bitmap e cores no estilo de MS-Paint.
 
 ## 1.3. Justificativa de Refatoração
-*(Adicionar detalhadamente quais alterações foram realizadas no código para atender aos requisitos de desempenho, correção e testes solicitados)*
 
 Após a análise do código bruto gerado pela IA, realizamos as seguintes refatorações manuais:
 
@@ -367,7 +366,6 @@ Teste do Solucionador de Labirinto: Verificou-se a capacidade do algoritmo de pe
   * Falta validação adequada das entradas do usuário. Valores não numéricos causam erro e um N muito grande pode tornar a execução impraticável ou atingir o limite de recursão. Além disso, a classe Pilha não possui mecanismos próprios para impedir a colocação de um disco maior sobre um menor.
 
 ## 2.3. Justificativa de Refatoração
-*(Adicionar detalhadamente quais alterações foram realizadas no código para atender aos requisitos de desempenho, correção e testes solicitados)*
 
 Após a análise do código bruto gerado pela IA, realizamos as seguintes refatorações manuais:
 
