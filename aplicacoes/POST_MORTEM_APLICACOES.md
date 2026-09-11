@@ -192,7 +192,8 @@ A versão recursiva refatorada calcula e ajusta o limite de recursão necessári
 
 A versão iterativa, usando a Pilha em array, não tem esse limite (profundidade de chamada O(1)) e por isso é a recomendada para matrizes grandes ou uso em robótica (labirintos).
 
-Foi adicionada a função resolver_labirinto(), que interrompe a busca assim que encontra a célula de saída 'S' e devolve o caminho percorrido, em vez de preencher a matriz inteira — aplicação direta ao caso de navegação em robótica citado no enunciado
+Foi adicionada a função resolver_labirinto(), que interrompe a busca assim que encontra a célula de saída 'S' e devolve o caminho percorrido, em vez de preencher a matriz inteira 
+
 
 ## 1.4. Evidência de Testes
 *(Relatório simples dos testes de estresse executados, demonstrando que o código refatorado por você supera o código ingênuo gerado inicialmente pelo modelo).*
