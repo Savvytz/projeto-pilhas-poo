@@ -1,3 +1,17 @@
+import sys
+import os
+
+# Volta duas pastas a partir de onde este arquivo está (hanoi -> aplicacoes -> raiz) e entra na pasta 'python'
+caminho_pasta_python = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'python'))
+
+# Adiciona o caminho ao sistema do Python
+sys.path.append(caminho_pasta_python)
+
+# Agora o Python consegue encontrar o arquivo pilha.py e importar a classe!
+from pilha import Pilha
+
+
+
 # ============================================================
 # FUNÇÃO AUXILIAR
 # ============================================================
