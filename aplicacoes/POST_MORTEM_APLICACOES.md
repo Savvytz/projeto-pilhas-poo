@@ -181,7 +181,7 @@ Implementou-se de fato a classe Pilha como array (lista de tamanho fixo) com top
 
 A exibição passou a montar toda a matriz em uma única string e emitir uma única chamada sys.stdout.write(), em vez de múltiplos print().
 
-Para atender à exigência de bitmap colorido, exibir_matriz() ganhou um modo="cor" que renderiza cada célula como um bloco de pixel colorido no terminal via códigos de escape ANSI (\033[48;5;Nm), com uma paleta de 8 cores de balde de tinta (cinza, azul, laranja, amarelo, roxo, verde, rosa) inspirada na paleta do MS-Paint — o usuário escolhe a cor de preenchimento antes de rodar o flood fill, permitindo múltiplos preenchimentos coloridos na mesma matriz.
+Para atender à exigência de bitmap colorido, exibir_matriz() ganhou um modo="cor" que renderiza cada célula como um bloco de pixel colorido no terminal via códigos de escape ANSI (\033[48;5;Nm), com uma paleta de 8 cores de balde de tinta (cinza, azul, laranja, amarelo, roxo, verde, rosa) inspirada na paleta do MS-Paint 
 
 Um modo="ascii" foi mantido como alternativa para terminais sem suporte a cor.
 
