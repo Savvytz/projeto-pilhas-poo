@@ -54,7 +54,7 @@ def executar_hanoi(n):
 def teste_pilha():
     print("\n=== TESTE 1 - PILHA ===")
 
-    pilha = Pilha(3)
+    pilha = Pilha(int,3)
 
     pilha.empilha(3)
     pilha.empilha(2)
