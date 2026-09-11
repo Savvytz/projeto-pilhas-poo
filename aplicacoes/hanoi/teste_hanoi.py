@@ -1,13 +1,13 @@
 
-from pilha import Pilha
+from codigo import Pilha, hanoi
 # ============================================================
 # FUNÇÃO AUXILIAR
 # ============================================================
 
 def executar_hanoi(n):
-    pino_a = Pilha(int,n)
-    pino_b = Pilha(int,n)
-    pino_c = Pilha(int,n)
+    pino_a = Pilha(n)
+    pino_b = Pilha(n)
+    pino_c = Pilha(n)
 
     # Coloca os discos no pino A
     for disco in range(n, 0, -1):
@@ -42,7 +42,7 @@ def executar_hanoi(n):
 def teste_pilha():
     print("\n=== TESTE 1 - PILHA ===")
 
-    pilha = Pilha(int,3)
+    pilha = Pilha(3)
 
     pilha.empilha(3)
     pilha.empilha(2)
