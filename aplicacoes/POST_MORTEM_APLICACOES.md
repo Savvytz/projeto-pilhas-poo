@@ -165,10 +165,10 @@ Após a análise do código bruto gerado pela IA, realizamos as seguintes refato
 
 ### Tratamento de Exceções Obrigatórias
 * **Problema inicial:**
-  O código gerado pela IA não tratava arquivo inexistente, matriz malformada e tampouco posição inicial fora dos limites. Além disso, o prompt exigia que "a matriz de caracteres deve ser lida de um arquivo", mas o código bruto recursivo não implementava nenhuma leitura de arquivo (matriz hardcoded no script) e o código bruto "iterativo" fabricava o próprio arquivo antes de lê-lo de volta, não lendo de fato um arquivo fornecido pelo usuário.
+  O código gerado pela IA não tratava arquivo inexistente, matriz malformada e tampouco posição inicial fora dos limites. Além disso, o prompt exigia que "a matriz de caracteres deve ser lida de um arquivo", mas o código bruto recursivo não implementava nenhuma leitura de arquivo e o código bruto "iterativo" fabricava o próprio arquivo antes de lê-lo de volta, não lendo de fato um arquivo fornecido pelo usuário.
 
 * **Alteração realizada:**
-  A função ler_matriz() passou a capturar FileNotFoundError/OSError e a validar que todas as linhas têm o mesmo comprimento, levantando ValueError com mensagem explicativa, lendo de fato um caminho informado pelo usuário no main() — sem gerar o próprio arquivo de teste como o código bruto fazia.
+  A função ler_matriz() passou a capturar FileNotFoundError/OSError e a validar que todas as linhas têm o mesmo comprimento, levantando ValueError com mensagem explicativa, lendo de fato um caminho informado pelo usuário no main(), sem gerar o próprio arquivo de teste como o código bruto fazia.
 
 A função localizar_posicao() retorna None (tratado no main()) em vez de deixar o IndexError estourar.
 
@@ -215,7 +215,7 @@ Foi adicionada a função resolver_labirinto(), que interrompe a busca assim que
   
   O programa deve, apresentar a formação inicial e final das pilhas de discos e o número total de movimentos de discos utilizados para solucionar o problema.
   
-  Permita que o usuário especifique a quantidade M de “movimentações de discos” entre duas visualizações dos pinos com as pilhas de discos, a qual deve também apresentar o número de movimentos de discos acumulados entre os dois momentos. O programa deve aguardar por um [ENTER] do usuário para prosseguir aos próximos M passos. O padrão é que o programa apresente as pilhas de discos passo a passo (M = 1), aguardando o [ENTER] do usuário para prosseguir. 
+  Permita que o usuário especifique a quantidade M de “movimentações de discos” entre duas visualizações dos pinos com as pilhas de discos, a qual deve também apresentar o  número de movimentos de discos acumulados entre os dois momentos. O programa deve aguardar por um [ENTER] do usuário para prosseguir aos próximos M passos. O padrão é que o programa apresente as pilhas de discos passo a passo (M = 1), aguardando o [ENTER] do usuário para prosseguir. 
   
    formatação de saída em terminal, apresente as pilhas na vertical
   * **Código bruto retornado pela IA (Recursivo):**
@@ -365,12 +365,22 @@ Após a análise do código bruto gerado pela IA, realizamos as seguintes refato
 
 ### Tratamento de Exceções Obrigatórias
 * **Problema inicial:**
+  No código feito pela IA, o bloco "if n == 1" move o disco mas não possui return antes de continuar para o passo geral do algoritimo. Reconstituindo esse comportamento fielmente, o resultado é recursão infinita, pois, como n nunca chega a 0(a chamada geral sempre fica com n-1), o programa não pra de recursar e aparece RecursionError antes de completar até mesmo para N=3.
 
+ Além disso, a pilha do código só verificava capacidade, sem impedir empilhar um disco maior sobre um menor.
+ 
 * **Alteração realizada:**
+  Foi corrigido para "if n == 0: return", eliminando a recursão infinita. Fazendo com que o número de movimentos seja exatamente 2^(n-1) para todo N testado.
 
+  O método Pilha.empilha() passou a comparar o disco a inserir com o disco no topo, levantando ValueError (MovimentoInvalido) se o disco for maior que o do topo.
+
+  A entrada de N e M passou a ser validada por ler_inteiro(), tratando ValueError em entradas não numéricas.
+
+  N foi limitado a 1–25 na entrada interativa: acima disso o número de movimentos (2^(N−1)) já é impraticável para exibição interativa, sendo preferível rejeitar cedo com mensagem clara a deixar o programa executando indefinidamente.
 
 ### Ajustes de Desempenho e Estrutura 
 
+Seguindo a mesma ideia do problema anterior, o exibir_hanoi() monta toda a representação vertical dos pinos em uma lista de strings e escreve tudo de uma vez com sys.stdout.write(), em vez de múltiplos print() por nível/pino.
 
 ### Refinamento dos Métodos Auxiliares (`troca` e `tamanho`)
 * **Alteração realizada:**
