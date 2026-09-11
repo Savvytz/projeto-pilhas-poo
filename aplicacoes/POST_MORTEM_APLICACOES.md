@@ -406,10 +406,28 @@ Seguindo a mesma ideia do problema anterior, o exibir_hanoi() monta toda a repre
 
 ### Refinamento dos Métodos Auxiliares (`troca` e `tamanho`)
 * **Alteração realizada:**
-* 
+  
 Foram mantidos e aprimorados os métodos auxiliares responsáveis pelo controle da pilha. O método tamanho() foi utilizado para determinar a quantidade de discos presentes em cada pino durante a exibição do estado da Torre de Hanoi. Também foram utilizados os métodos pilha_vazia() e pilha_cheia() para controlar os limites da estrutura e evitar operações inválidas. Além disso, o método topo_valor() permite consultar o disco presente no topo sem removê-lo.
 
 ## 2.4. Evidência de Testes
 *(Relatório simples dos testes de estresse executados, demonstrando que o código refatorado por você supera o código ingênuo gerado inicialmente pelo modelo).*
 
+Teste de Empilhar e Desempilhar: Verificou-se a correta inserção e remoção dos discos na pilha, assegurando que os elementos são desempilhados na ordem inversa em que foram empilhados (LIFO).
 
+Teste de Pilha Vazia: Verificou-se o tratamento correto da tentativa de desempilhar um disco quando o pino está vazio, retornando a exceção prevista.
+
+Teste de Movimento Inválido: Verificou-se que a estrutura impede a colocação de um disco maior sobre um disco menor, lançando a exceção correspondente.
+
+Teste da Torre de Hanoi com 1 Disco: Verificou-se que, para N = 1, o algoritmo realiza exatamente 1 movimento, transferindo corretamente o disco do pino de origem para o pino de destino.
+
+Teste da Torre de Hanoi com 2 Discos: Verificou-se que, para N = 2, o algoritmo realiza exatamente 3 movimentos e mantém a ordenação correta dos discos.
+
+Teste da Torre de Hanoi com 3 Discos: Verificou-se que, para N = 3, o algoritmo realiza exatamente 7 movimentos
+
+Teste da Torre de Hanoi com 5 Discos: Verificou-se que, para N = 5, o algoritmo realiza exatamente 31 movimentos
+
+Teste da Torre de Hanoi com 10 Discos: Verificou-se a execução do algoritmo com N = 10, totalizando 1.023 movimentos
+
+Teste de Torre de Hanoi com 15 Discos: Verificou-se a execução do algoritmo com N = 15, totalizando 32.767 movimentos
+
+Teste de Torre de Hanoi com 20 Discos: Verificou-se a execução do algoritmo com N = 20, totalizando 1.048.575 movimentos
