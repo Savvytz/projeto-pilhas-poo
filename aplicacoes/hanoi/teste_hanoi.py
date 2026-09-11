@@ -17,9 +17,9 @@ from pilha import Pilha
 # ============================================================
 
 def executar_hanoi(n):
-    pino_a = Pilha(n)
-    pino_b = Pilha(n)
-    pino_c = Pilha(n)
+    pino_a = Pilha(int,n)
+    pino_b = Pilha(int,n)
+    pino_c = Pilha(int,n)
 
     # Coloca os discos no pino A
     for disco in range(n, 0, -1):
