@@ -392,13 +392,13 @@ Após a análise do código bruto gerado pela IA, realizamos as seguintes refato
  Além disso, a pilha do código só verificava capacidade, sem impedir empilhar um disco maior sobre um menor.
  
 * **Alteração realizada:**
-  Foi corrigido para "if n == 0: return", eliminando a recursão infinita. Fazendo com que o número de movimentos seja exatamente 2^(n-1) para todo N testado.
+  Foi corrigido para "if n == 0: return", eliminando a recursão infinita. Fazendo com que o número de movimentos seja exatamente 2^n-1 para todo N testado.
 
   O método Pilha.empilha() passou a comparar o disco a inserir com o disco no topo, levantando ValueError (MovimentoInvalido) se o disco for maior que o do topo.
 
   A entrada de N e M passou a ser validada por ler_inteiro(), tratando ValueError em entradas não numéricas.
 
-  N foi limitado a 1–25 na entrada interativa: acima disso o número de movimentos (2^(N−1)) já é impraticável para exibição interativa, sendo preferível rejeitar cedo com mensagem clara a deixar o programa executando indefinidamente.
+  N foi limitado a 1–25 na entrada interativa: acima disso o número de movimentos (2^N−1) já é impraticável para exibição interativa, sendo preferível rejeitar cedo com mensagem clara a deixar o programa executando indefinidamente.
 
 ### Ajustes de Desempenho e Estrutura 
 
@@ -406,6 +406,8 @@ Seguindo a mesma ideia do problema anterior, o exibir_hanoi() monta toda a repre
 
 ### Refinamento dos Métodos Auxiliares (`troca` e `tamanho`)
 * **Alteração realizada:**
+* 
+Foram mantidos e aprimorados os métodos auxiliares responsáveis pelo controle da pilha. O método tamanho() foi utilizado para determinar a quantidade de discos presentes em cada pino durante a exibição do estado da Torre de Hanoi. Também foram utilizados os métodos pilha_vazia() e pilha_cheia() para controlar os limites da estrutura e evitar operações inválidas. Além disso, o método topo_valor() permite consultar o disco presente no topo sem removê-lo.
 
 ## 2.4. Evidência de Testes
 *(Relatório simples dos testes de estresse executados, demonstrando que o código refatorado por você supera o código ingênuo gerado inicialmente pelo modelo).*
