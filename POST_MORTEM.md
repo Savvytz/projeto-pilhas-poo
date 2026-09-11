@@ -77,7 +77,6 @@
 * **Segurança** Não há riscos de segurança significativos, mas existem problemas de robustez. A capacidade não é validada e a ordem das verificações em empilha() pode fazer com que uma exceção de pilha cheia seja lançada antes da verificação do tipo do dado.
 
 ## 1.3. Justificativa de Refatoração
-*(Adicionar detalhadamente quais alterações foram realizadas no código para atender aos requisitos de desempenho, correção e testes solicitados)*
 
 Após a análise do código bruto gerado pela IA, realizamos as seguintes refatorações manuais:
 
