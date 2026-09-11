@@ -164,16 +164,35 @@ Além disso, duas exigências explicitas no prompt não foram atendidas, sendo e
 Após a análise do código bruto gerado pela IA, realizamos as seguintes refatorações manuais:
 
 ### Tratamento de Exceções Obrigatórias
-* **Problema inicial:**  
+* **Problema inicial:**
+  O código gerado pela IA não tratava arquivo inexistente, matriz malformada e tampouco posição inicial fora dos limites. Além disso, o prompt exigia que "a matriz de caracteres deve ser lida de um arquivo", mas o código bruto recursivo não implementava nenhuma leitura de arquivo (matriz hardcoded no script) e o código bruto "iterativo" fabricava o próprio arquivo antes de lê-lo de volta, não lendo de fato um arquivo fornecido pelo usuário.
 
 * **Alteração realizada:**
+  A função ler_matriz() passou a capturar FileNotFoundError/OSError e a validar que todas as linhas têm o mesmo comprimento, levantando ValueError com mensagem explicativa, lendo de fato um caminho informado pelo usuário no main() — sem gerar o próprio arquivo de teste como o código bruto fazia.
+
+A função localizar_posicao() retorna None (tratado no main()) em vez de deixar o IndexError estourar.
+
+A classe Pilha levanta IndexError explícito (PilhaVaziaErro) ao desempilhar uma pilha vazia, em vez de deixar o list.pop() estourar sem contexto.
 
 
 ### Ajustes de Desempenho e Estrutura 
 
+Implementou-se de fato a classe Pilha como array (lista de tamanho fixo) com topo controlado manualmente e redimensionamento dinâmico (dobra de capacidade quando cheia), e a função flood_fill_iterativo() passou a usá-la para empilhar/desempilhar as posições a visitar, eliminando a recursão.
+
+A exibição passou a montar toda a matriz em uma única string e emitir uma única chamada sys.stdout.write(), em vez de múltiplos print().
+
+Para atender à exigência de bitmap colorido, exibir_matriz() ganhou um modo="cor" que renderiza cada célula como um bloco de pixel colorido no terminal via códigos de escape ANSI (\033[48;5;Nm), com uma paleta de 8 cores de balde de tinta (cinza, azul, laranja, amarelo, roxo, verde, rosa) inspirada na paleta do MS-Paint — o usuário escolhe a cor de preenchimento antes de rodar o flood fill, permitindo múltiplos preenchimentos coloridos na mesma matriz.
+
+Um modo="ascii" foi mantido como alternativa para terminais sem suporte a cor.
 
 ### Refinamento dos Métodos Auxiliares (`troca` e `tamanho`)
 * **Alteração realizada:**
+  
+A versão recursiva refatorada calcula e ajusta o limite de recursão necessário (n_linhas × n_col + margem) antes de rodar, e captura RecursionError residual com mensagem orientando o uso da versão iterativa.
+
+A versão iterativa, usando a Pilha em array, não tem esse limite (profundidade de chamada O(1)) e por isso é a recomendada para matrizes grandes ou uso em robótica (labirintos).
+
+Foi adicionada a função resolver_labirinto(), que interrompe a busca assim que encontra a célula de saída 'S' e devolve o caminho percorrido, em vez de preencher a matriz inteira — aplicação direta ao caso de navegação em robótica citado no enunciado
 
 ## 1.4. Evidência de Testes
 *(Relatório simples dos testes de estresse executados, demonstrando que o código refatorado por você supera o código ingênuo gerado inicialmente pelo modelo).*
