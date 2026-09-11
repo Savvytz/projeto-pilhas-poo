@@ -147,16 +147,16 @@
 ## 1.2 Code Review Crítico
 *(Análise da solução inicial gerada pela IA, identificando falhas de eficiência, complexidade e segurança)*
 
-Eficiência:
-Os códigos, tanto o "Recursivo" quanto o "Iterativo", implementaram de fato uma estrutura de pilha: A segunda versão, apesar de o prompt pedir explictamente uma solução baseada em uma pilha de posições (Linha, Coluna), apenas reaproveita a msma função recursiva original com parâmetros extras de contagem (P, contador). Ou seja, a IA não atendeu ao que fo pedido nessa segunda entrega. Além disso, a função é chamada repetidamente com um print() por linha, gerando overhead de I/O a cada apresentação da matriz.
+**Eficiência:**
+Os códigos, tanto o "Recursivo" quanto o "Iterativo", implementaram de fato uma estrutura de pilha: A segunda versão, apesar de o prompt pedir explicitamente uma solução baseada em uma pilha de posições (Linha, Coluna), apenas reaproveita a mesma função recursiva original com parâmetros extras de contagem (P, contador). Ou seja, a IA não atendeu ao que foi pedido nessa segunda entrega. Além disso, a função é chamada repetidamente com um print() por linha, gerando overhead de I/O a cada apresentação da matriz.
 
-Complexidade:
+**Complexidade:**
 O flood fill possui complexidade de tempo O(L x C), pois cada célula é visitada e marcada no máximo uma vez. Ainda assim, por ser implementado como uma chamada recursiva por célula, a profundidade da pilha de chamadas pode crescer proporcionalmente à área da região a preencher, o que é um risco distinto de complexidade de tempo. Ou seja, mesmo sendo O(L x C) em tempo, o programa pode esbarrar no limite de recursão do Python antes de terminar em matrizes grandes.
 
-Segurança:
-Falta validação adequada das entradas do usuário. O código bruto não trata arquivos inexistentes, matrizes malformadas e posição inicial fora dos limites. O código recursivo bruto também não ajusta sys.setrecursionlimit, o que pode causar RecursionError em matrizes com regiões grandes a preencher Observa-se ainda um resíduo de código sem sentido na função exibir_matriz do recursivo.
-
-Além disso, duas exigências explicitas no prompt não foram atendidas, sendo elas a leitura de arquivo e a visualização em bitmap e cores no estilo de MS-Paint.
+**Segurança:**
+ Falta validação adequada das entradas do usuário. O código bruto não trata arquivos inexistentes, matrizes malformadas e posição inicial fora dos limites. O código recursivo bruto também não ajusta sys.setrecursionlimit, o que pode causar RecursionError em matrizes com regiões grandes a preencher Observa-se ainda um resíduo de código sem sentido na função exibir_matriz do recursivo.
+ 
+ Além disso, duas exigências explicitas no prompt não foram atendidas, sendo elas a leitura de arquivo e a visualização em bitmap e cores no estilo de MS-Paint.
 
 ## 1.3. Justificativa de Refatoração
 *(Adicionar detalhadamente quais alterações foram realizadas no código para atender aos requisitos de desempenho, correção e testes solicitados)*
@@ -170,29 +170,17 @@ Após a análise do código bruto gerado pela IA, realizamos as seguintes refato
 * **Alteração realizada:**
   A função ler_matriz() passou a capturar FileNotFoundError/OSError e a validar que todas as linhas têm o mesmo comprimento, levantando ValueError com mensagem explicativa, lendo de fato um caminho informado pelo usuário no main(), sem gerar o próprio arquivo de teste como o código bruto fazia.
 
-A função localizar_posicao() retorna None (tratado no main()) em vez de deixar o IndexError estourar.
-
-A classe Pilha levanta IndexError explícito (PilhaVaziaErro) ao desempilhar uma pilha vazia, em vez de deixar o list.pop() estourar sem contexto.
+  A função localizar_posicao() retorna None (tratado no main()) em vez de deixar o IndexError estourar.
+  
+  A classe Pilha levanta IndexError explícito (PilhaVaziaErro) ao desempilhar uma pilha vazia, em vez de deixar o list.pop() estourar sem contexto.
 
 
 ### Ajustes de Desempenho e Estrutura 
-
-Implementou-se de fato a classe Pilha como array (lista de tamanho fixo) com topo controlado manualmente e redimensionamento dinâmico (dobra de capacidade quando cheia), e a função flood_fill_iterativo() passou a usá-la para empilhar/desempilhar as posições a visitar, eliminando a recursão.
-
-A exibição passou a montar toda a matriz em uma única string e emitir uma única chamada sys.stdout.write(), em vez de múltiplos print().
-
-Para atender à exigência de bitmap colorido, exibir_matriz() ganhou um modo="cor" que renderiza cada célula como um bloco de pixel colorido no terminal via códigos de escape ANSI (\033[48;5;Nm), com uma paleta de 7 cores de balde de tinta (cinza, azul, laranja, amarelo, roxo, verde, rosa) inspirada na paleta do MS-Paint 
-
-Um modo="ascii" foi mantido como alternativa para terminais sem suporte a cor.
+* **Alteração realizada:** Implementou-se de fato a classe Pilha como array (lista de tamanho fixo) com topo controlado manualmente e redimensionamento dinâmico (dobra de capacidade quando cheia), e a função flood_fill_iterativo() passou a usá-la para empilhar/desempilhar as posições a visitar, eliminando a recursão. A exibição passou a montar toda a matriz em uma única string e emitir uma única chamada sys.stdout.write(), em vez de múltiplos print(). Para atender à exigência de bitmap colorido, exibir_matriz() ganhou um modo="cor" que renderiza cada célula como um bloco de pixel colorido no terminal via códigos de escape ANSI (\033[48;5;Nm), com uma paleta de 7 cores de balde de tinta (cinza, azul, laranja, amarelo, roxo, verde, rosa) inspirada na paleta do MS-Paint. Um modo="ascii" foi mantido como alternativa para terminais sem suporte a cor.
 
 ### Refinamento dos Métodos Auxiliares (`troca` e `tamanho`)
-* **Alteração realizada:**
-  
-A versão recursiva refatorada calcula e ajusta o limite de recursão necessário (n_linhas × n_col + margem) antes de rodar, e captura RecursionError residual com mensagem orientando o uso da versão iterativa.
-
-A versão iterativa, usando a Pilha em array, não tem esse limite (profundidade de chamada O(1)) e por isso é a recomendada para matrizes grandes ou uso em robótica (labirintos).
-
-Foi adicionada a função resolver_labirinto(), que interrompe a busca assim que encontra a célula de saída 'S' e devolve o caminho percorrido, em vez de preencher a matriz inteira 
+* **Alteração realizada:** A versão recursiva refatorada calcula e ajusta o limite de recursão necessário (n_linhas × n_col + margem) antes de rodar, e captura RecursionError residual com mensagem orientando o uso da versão iterativa.
+A versão iterativa, usando a Pilha em array, não tem esse limite (profundidade de chamada O(1)) e por isso é a recomendada para matrizes grandes ou uso em robótica (labirintos). Foi adicionada a função resolver_labirinto(), que interrompe a busca assim que encontra a célula de saída 'S' e devolve o caminho percorrido, em vez de preencher a matriz inteira 
 
 
 ## 1.4. Evidência de Testes
