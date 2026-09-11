@@ -148,13 +148,15 @@
 *(Análise da solução inicial gerada pela IA, identificando falhas de eficiência, complexidade e segurança)*
 
 Eficiência:
-A IA implementou a pilha utilizando listas nativas do Python em vez de uma estrutura de array explícita. Além disso, a função de exibição visual é executada repetidas vezes, criando um gargalo de I/O que pode deixar o programa lento para valores maiores de N.
+Os códigos, tanto o "Recursivo" quanto o "Iterativo", implementaram de fato uma estrutura de pilha: A segunda versão, apesar de o prompt pedir explictamente uma solução baseada em uma pilha de posições (Linha, Coluna), apenas reaproveita a msma função recursiva original com parâmetros extras de contagem (P, contador). Ou seja, a IA não atendeu ao que fo pedido nessa segunda entrega. Além disso, a função é chamada repetidamente com um print() por linha, gerando overhead de I/O a cada apresentação da matriz.
 
 Complexidade:
-O algoritmo recursivo possui complexidade de tempo O(2^n), realizando exatamente 2^n-1 movimentos. Embora as operações da pilha, como append e pop, sejam eficientes O(1), a reconstrução da visualização no terminal a cada etapa aumenta o custo de execução. O enunciado, inclusive, exige essas visualizações entre os movimentos.
+O flood fill possui complexidade de tempo O(L x C), pois cada célula é visitada e marcada no máximo uma vez. Ainda assim, por ser implementado como uma chamada recursiva por célula, a profundidade da pilha de chamadas pode crescer proporcionalmente à área da região a preencher, o que é um risco distinto de complexidade de tempo. Ou seja, mesmo sendo O(L x C) em tempo, o programa pode esbarrar no limite de recursão do Python antes de terminar em matrizes grandes.
 
 Segurança:
-Falta validação adequada das entradas do usuário. Valores não numéricos causam erro e um N muito grande pode tornar a execução impraticável ou atingir o limite de recursão. Além disso, a classe Pilha não possui mecanismos próprios para impedir a colocação de um disco maior sobre um menor.
+Falta validação adequada das entradas do usuário. O código bruto não trata arquivos inexistentes, matrizes malformadas e posição inicial fora dos limites. O código recursivo bruto também não ajusta sys.setrecursionlimit, o que pode causar RecursionError em matrizes com regiões grandes a preencher Observa-se ainda um resíduo de código sem sentido na função exibir_matriz do recursivo.
+
+Além disso, duas exigências explicitas no prompt não foram atendidas, sendo elas a leitura de arquivo e a visualização em bitmap e cores no estilo de MS-Paint.
 
 ## 1.3. Justificativa de Refatoração
 *(Adicionar detalhadamente quais alterações foram realizadas no código para atender aos requisitos de desempenho, correção e testes solicitados)*
