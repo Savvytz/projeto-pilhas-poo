@@ -179,7 +179,7 @@ Teste de Estresse: A pilha demonstrou robustez e eficiência ao lidar com 2.000.
 ## 2.2 Code Review Crítico
 
 * **Eficiência**
-  * A IA fez o uso de um array contíguo em memória, com isso, todas as operações operam em tempo constante $O(1)$ e aproveitam a localidade espacial de referência, otimizando o uso do cache da CPU
+  * A IA fez o uso de um array contíguo em memória, com isso, todas as operações operam em tempo constante $O(1)$ e aproveitam a localidade espacial de referência, otimizando o uso do cache da CPU.
 * **Complexidade**
   * O código da IA cumpre os requisitos de POO ao manter os membros privados(array, capacidade, topo_index, etc). A implementação ficou restrita unicamente ao tipo primitivo int, porem com essa restrição a um tipo que em caso de mudança seria preciso duplicar o código-fonte manualmente, aumentando a complexidade de manutenção do projeto.
 * **Segurança**
